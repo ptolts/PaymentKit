@@ -128,7 +128,7 @@
 
 - (void)setupCardNumberField
 {
-    cardNumberField = [[PKTextField alloc] initWithFrame:CGRectMake(12,0,170,20)];
+    // cardNumberField = [[PKTextField alloc] initWithFrame:CGRectMake(12,0,170,20)];
     
     cardNumberField.delegate = self;
     
@@ -142,8 +142,8 @@
 
 - (void)setupCardExpiryField
 {
-    cardExpiryField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardExpiryFieldStartX,0,
-                                                                    60,20)];
+    // cardExpiryField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardExpiryFieldStartX,0,
+                                                                    // 60,20)];
 
     cardExpiryField.delegate = self;
     
@@ -157,8 +157,8 @@
 
 - (void)setupCardCVCField
 {
-    cardCVCField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardCVCFieldStartX,0,
-                                                                 55,20)];
+    // cardCVCField = [[PKTextField alloc] initWithFrame:CGRectMake(kPKViewCardCVCFieldStartX,0,
+    //                                                              55,20)];
     
     cardCVCField.delegate = self;
     
