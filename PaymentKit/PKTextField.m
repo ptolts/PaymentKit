@@ -16,6 +16,7 @@
     return [string stringByReplacingOccurrencesOfString:kPKTextFieldSpaceChar withString:@""];
 }
 
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self) {

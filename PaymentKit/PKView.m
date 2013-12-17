@@ -7,7 +7,8 @@
 //
 
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f]
-#define DarkGreyColor RGB(0,0,0)
+//[UIColor colorWithRed:17.0/255.0 green:17.0/255.0 blue:17.0/255.0 alpha:1]
+#define DarkGreyColor RGB(255.0,255.0,255.0)
 #define RedColor RGB(253,0,17)
 #define DefaultBoldFont [UIFont boldSystemFontOfSize:17]
 
@@ -79,36 +80,36 @@
     isInitialState = YES;
     isValidState   = NO;
     
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 290, 46);
-    self.backgroundColor = [UIColor clearColor];
-    
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    backgroundImageView.image = [[UIImage imageNamed:@"textfield"]
-                                 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 8, 0, 8)];
-    [self addSubview:backgroundImageView];
-    
-    self.innerView = [[UIView alloc] initWithFrame:CGRectMake(40, 12, self.frame.size.width - 40, 20)];
-    self.innerView.clipsToBounds = YES;
-    
+//    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 290, 46);
+//    self.backgroundColor = [UIColor clearColor];
+//    
+//    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+//    backgroundImageView.image = [[UIImage imageNamed:@"textfield"]
+//                                 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 8, 0, 8)];
+//    [self addSubview:backgroundImageView];
+//    
+//    self.innerView = [[UIView alloc] initWithFrame:CGRectMake(40, 12, self.frame.size.width - 40, 20)];
+//    self.innerView.clipsToBounds = YES;
+//    
     [self setupPlaceholderView];
     [self setupCardNumberField];
     [self setupCardExpiryField];
     [self setupCardCVCField];
     
-    [self.innerView addSubview:cardNumberField];
-    
-    UIImageView *gradientImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 12, 34)];
-    gradientImageView.image = [UIImage imageNamed:@"gradient"];
-    [self.innerView addSubview:gradientImageView];
-    
-    opaqueOverGradientView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 9, 34)];
-    opaqueOverGradientView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686
-                                                              blue:0.9686 alpha:1.0000];
-    opaqueOverGradientView.alpha = 0.0;
-    [self.innerView addSubview:opaqueOverGradientView];
-    
-    [self addSubview:self.innerView];
-    [self addSubview:placeholderView];
+//    [self.innerView addSubview:cardNumberField];
+//    
+//    UIImageView *gradientImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 12, 34)];
+//    gradientImageView.image = [UIImage imageNamed:@"gradient"];
+//    [self.innerView addSubview:gradientImageView];
+//    
+//    opaqueOverGradientView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 9, 34)];
+//    opaqueOverGradientView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686
+//                                                              blue:0.9686 alpha:1.0000];
+//    opaqueOverGradientView.alpha = 0.0;
+//    [self.innerView addSubview:opaqueOverGradientView];
+//    
+//    [self addSubview:self.innerView];
+//    [self addSubview:placeholderView];
     
     [self stateCardNumber];
 }
@@ -116,7 +117,7 @@
 
 - (void)setupPlaceholderView
 {
-    placeholderView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 13, 32, 20)];
+//    placeholderView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 13, 32, 20)];
     placeholderView.backgroundColor = [UIColor clearColor];
     placeholderView.image = [UIImage imageNamed:@"placeholder"];
     
@@ -222,7 +223,7 @@
                          }];
     }
     
-    [self.cardNumberField becomeFirstResponder];
+//    [self.cardNumberField becomeFirstResponder];
 }
 
 - (void)stateMeta
@@ -283,30 +284,38 @@
 - (void)setPlaceholderViewImage:(UIImage *)image
 {
     if(![placeholderView.image isEqual:image]) {
-        __block __unsafe_unretained UIView *previousPlaceholderView = placeholderView;
-        [UIView animateWithDuration:kPKViewPlaceholderViewAnimationDuration delay:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^
-         {
-             placeholderView.layer.opacity = 0.0;
-             placeholderView.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.2);
-         } completion:^(BOOL finished) {
-             [previousPlaceholderView removeFromSuperview];
-         }];
-        placeholderView = nil;
-        
-        [self setupPlaceholderView];
-        placeholderView.image = image;
-        placeholderView.layer.opacity = 0.0;
-        placeholderView.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8);
-        [self insertSubview:placeholderView belowSubview:previousPlaceholderView];
-        [UIView animateWithDuration:kPKViewPlaceholderViewAnimationDuration delay:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^
-         {
-             placeholderView.layer.opacity = 1.0;
-             placeholderView.layer.transform = CATransform3DIdentity;
-         } completion:^(BOOL finished) {}];
+        [UIView transitionWithView:placeholderView
+                          duration:0.2f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            placeholderView.image = image;
+                        } completion: ^(BOOL finished){
+                            NSLog(@"Image Replaced");
+                        }];
+//        __block __unsafe_unretained UIView *previousPlaceholderView = placeholderView;
+//        [UIView animateWithDuration:kPKViewPlaceholderViewAnimationDuration delay:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^
+//         {
+//             placeholderView.layer.opacity = 0.0;
+//             placeholderView.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.2);
+//         } completion:^(BOOL finished) {
+//             [previousPlaceholderView removeFromSuperview];
+//         }];
+//        placeholderView = nil;
+//        
+//        [self setupPlaceholderView];
+//        placeholderView.image = image;
+//        placeholderView.layer.opacity = 0.0;
+//        placeholderView.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8);
+//        [self insertSubview:placeholderView belowSubview:previousPlaceholderView];
+//        [UIView animateWithDuration:kPKViewPlaceholderViewAnimationDuration delay:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^
+//         {
+//             placeholderView.layer.opacity = 1.0;
+//             placeholderView.layer.transform = CATransform3DIdentity;
+//         } completion:^(BOOL finished) {}];
     }
 }
 
@@ -358,6 +367,11 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    textField.placeholder = @"";
+    [textField setNeedsDisplay];
+//    [textField setValue:[UIColor colorWithRed:17.0/255.0 green:17.0/255.0 blue:17.0/255.0 alpha:1] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    
     if ([textField isEqual:cardCVCField]) {
         [self setPlaceholderToCVC];
     } else {
@@ -365,8 +379,20 @@
     }
     
     if ([textField isEqual:cardNumberField] && !isInitialState) {
-        [self stateCardNumber];
+//        [self stateCardNumber];
     }
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField {
+    if ([textField isEqual:cardCVCField]) {
+        cardCVCField.placeholder = @"CVC";
+    } else {
+        cardExpiryField.placeholder = @"MM/YY";
+    }
+    if ([textField isEqual:cardNumberField]) {
+        cardNumberField.placeholder = @"1234 5678 9012 3456";
+    }
+    [textField setNeedsDisplay];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)replacementString
@@ -388,10 +414,12 @@
 
 - (void)pkTextFieldDidBackSpaceWhileTextIsEmpty:(PKTextField *)textField
 {
-    if (textField == self.cardCVCField)
+    if (textField == self.cardCVCField){
         [self.cardExpiryField becomeFirstResponder];
-    else if (textField == self.cardExpiryField)
-        [self stateCardNumber];
+    }
+    else if (textField == self.cardExpiryField) {
+//        [self stateCardNumber];
+    }
 }
 
 - (BOOL)cardNumberFieldShouldChangeCharactersInRange: (NSRange)range replacementString:(NSString *)replacementString
@@ -413,7 +441,7 @@
     
     if ([cardNumber isValid]) {
         [self textFieldIsValid:cardNumberField];
-        [self stateMeta];
+//        [self stateMeta];
         
     } else if ([cardNumber isValidLength] && ![cardNumber isValidLuhn]) {
         [self textFieldIsInvalid:cardNumberField withErrors:YES];
