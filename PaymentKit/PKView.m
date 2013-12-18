@@ -228,34 +228,34 @@
 
 - (void)stateMeta
 {
-    isInitialState = NO;
-    
-    CGSize cardNumberSize = [self.cardNumber.formattedString sizeWithFont:DefaultBoldFont];
-    CGSize lastGroupSize = [self.cardNumber.lastGroup sizeWithFont:DefaultBoldFont];
-    CGFloat frameX = self.cardNumberField.frame.origin.x - (cardNumberSize.width - lastGroupSize.width);
-    
-    [UIView animateWithDuration:0.05 delay:0.35 options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         opaqueOverGradientView.alpha = 1.0;
-                     } completion:^(BOOL finished) {}];
-    [UIView animateWithDuration:0.400 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        cardExpiryField.frame = CGRectMake(kPKViewCardExpiryFieldEndX,
-                                           cardExpiryField.frame.origin.y,
-                                           cardExpiryField.frame.size.width,
-                                           cardExpiryField.frame.size.height);
-        cardCVCField.frame = CGRectMake(kPKViewCardCVCFieldEndX,
-                                        cardCVCField.frame.origin.y,
-                                        cardCVCField.frame.size.width,
-                                        cardCVCField.frame.size.height);
-        cardNumberField.frame = CGRectMake(frameX,
-                                           cardNumberField.frame.origin.y,
-                                           cardNumberField.frame.size.width,
-                                           cardNumberField.frame.size.height);
-    } completion:nil];
-    
-    [self addSubview:placeholderView];
-    [self.innerView addSubview:cardExpiryField];
-    [self.innerView addSubview:cardCVCField];
+//    isInitialState = NO;
+//    
+//    CGSize cardNumberSize = [self.cardNumber.formattedString sizeWithFont:DefaultBoldFont];
+//    CGSize lastGroupSize = [self.cardNumber.lastGroup sizeWithFont:DefaultBoldFont];
+//    CGFloat frameX = self.cardNumberField.frame.origin.x - (cardNumberSize.width - lastGroupSize.width);
+//    
+//    [UIView animateWithDuration:0.05 delay:0.35 options:UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         opaqueOverGradientView.alpha = 1.0;
+//                     } completion:^(BOOL finished) {}];
+//    [UIView animateWithDuration:0.400 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        cardExpiryField.frame = CGRectMake(kPKViewCardExpiryFieldEndX,
+//                                           cardExpiryField.frame.origin.y,
+//                                           cardExpiryField.frame.size.width,
+//                                           cardExpiryField.frame.size.height);
+//        cardCVCField.frame = CGRectMake(kPKViewCardCVCFieldEndX,
+//                                        cardCVCField.frame.origin.y,
+//                                        cardCVCField.frame.size.width,
+//                                        cardCVCField.frame.size.height);
+//        cardNumberField.frame = CGRectMake(frameX,
+//                                           cardNumberField.frame.origin.y,
+//                                           cardNumberField.frame.size.width,
+//                                           cardNumberField.frame.size.height);
+//    } completion:nil];
+//    
+//    [self addSubview:placeholderView];
+//    [self.innerView addSubview:cardExpiryField];
+//    [self.innerView addSubview:cardCVCField];
     [cardExpiryField becomeFirstResponder];
 }
 
@@ -441,7 +441,7 @@
     
     if ([cardNumber isValid]) {
         [self textFieldIsValid:cardNumberField];
-//        [self stateMeta];
+        [self stateMeta];
         
     } else if ([cardNumber isValidLength] && ![cardNumber isValidLuhn]) {
         [self textFieldIsInvalid:cardNumberField withErrors:YES];
